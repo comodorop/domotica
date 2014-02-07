@@ -9,6 +9,27 @@ include './Encabezado.php';
                 margin-top: -20px
             }
         </style>
+        <script>
+            $(document).ready(function() {
+                $("#guardar").click(function() {
+                    var datos = 'nombre=' + $('#nombre').val() +
+                            '&usuario=' + $('#usuario').val() +
+                            '&pass=' + $('#pass').val() +
+                            '&status=' + $("#status").val();
+                    $.get('guardarUsuario.php', datos, function() {
+                        alertify.success("Exito! Usuario dado de Alta");
+                        limpiar();
+                    });
+                });
+
+                function limpiar() {
+                    $('#nombre').val('');
+                    $('#usuario').val('');
+                    $('#pass').slideDown('slow');
+                }
+            });
+
+        </script>
     </head>
     <body>
         <div class="container stlconten">
@@ -16,19 +37,19 @@ include './Encabezado.php';
                 <div class="well">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nombre:</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Usuario:</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Usuario">
+                        <input type="text" class="form-control" id="usuario" placeholder="Usuario">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Contraseña:</label>
-                        <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="pass" placeholder="Contraseña">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Staus:</label>
-                        <select class="form-control">
+                        <select id="status" class="form-control">
                             <option>Status</option>
                             <option value="1">Administrador</option>
                             <option value="2">Usuario</option>
@@ -37,18 +58,22 @@ include './Encabezado.php';
                     </div>
                     <center>
                         <input type="submit"
+                               id="guardar"
                                value="Guardar" 
                                class="btn btn-success"
                                title="Guardar Usuario"/>
                         <input type="submit" 
+                               id="cancelar"
                                value="Cancelar" 
                                class="btn btn-danger"
                                title="Cancelar Usuario"/>
                     </center>
                 </div>
-                <?php
-                include './footeer.php';
-                ?>
+                <div style="margin-top: -20px">
+                    <?php
+                    include './footeer.php';
+                    ?>
+                </div>
             </div>
         </div>
     </body>
